@@ -10,6 +10,10 @@ terraform {
   }
 }
 
+provider "azuread" {
+  version = "0.10.0"
+}
+
 resource "azurerm_resource_group" "mygithubtest" {
   name = "mygithub_resource_group"
   location = "eastus"
