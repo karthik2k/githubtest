@@ -18,7 +18,4 @@ provider azurerm {
 resource "azurerm_resource_group" "mygithubtest" {
   name = "mygithub_resource_group"
   location = "eastus"
-    tags {
-      name = "Karthik Si"
-      }
 }
