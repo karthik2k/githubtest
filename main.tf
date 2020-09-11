@@ -10,6 +10,11 @@ terraform {
   }
 }
 
+provider azurerm {
+  version = "v1.4.4"
+
+}
+
 resource "azurerm_resource_group" "mygithubtest" {
   name = "mygithub_resource_group"
   location = "eastus"
