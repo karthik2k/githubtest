@@ -11,7 +11,7 @@ terraform {
 }
 
 provider azurerm {
-  version = "v1.4.4"
+  version = "=1.44.0"
 
 }
 
