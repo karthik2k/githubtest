@@ -11,7 +11,7 @@ terraform {
 }
 
 provider "azurerm" {
-  version = "0.10.0"
+  version = "v2.0.0"
 }
 
 resource "azurerm_resource_group" "mygithubtest" {
