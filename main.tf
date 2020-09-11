@@ -1,4 +1,4 @@
-//test again 
+//test again
 terraform {
   backend "remote" {
     hostname = "app.terraform.io"
@@ -10,7 +10,7 @@ terraform {
   }
 }
 
-provider "azuread" {
+provider "azurerm" {
   version = "0.10.0"
 }
 
