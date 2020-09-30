@@ -6,7 +6,7 @@ pipeline {
     stages {
       stage ("ansible test") {
         steps {
-          ansiblePlaybook (
+          ansiblePlaybook(
             playbook: 'site.yml',
             colorized: true
             )
