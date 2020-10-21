@@ -13,26 +13,26 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "mygithubtest" {
+resource "azurerm_resource_group" "MyGithubTest" {
   name = "mygithub_resource_group"
   location = "eastus"
 }
 
-resource "azurerm_storage_account" "mygithubtest" {
+resource "azurerm_storage_account" "MyGithubTest" {
   account_replication_type  = "LRS"
   account_tier              = "Standard"
   account_kind              = "Storage"
   enable_https_traffic_only = false
   location                  = var.location
   name                      = "atosapimgmtteststorage"
-  resource_group_name       = azurerm_resource_group.mygithubtest.name
+  resource_group_name       = azurerm_resource_group.MyGithubTest.name
 }
 
 
-resource "azurerm_network_security_group" "mygithubtest" {
+resource "azurerm_network_security_group" "MyGithubTest" {
   name                = "ApiTestSG"
   location            = var.location
-  resource_group_name = azurerm_resource_group.mygithubtest.name
+  resource_group_name = azurerm_resource_group.MyGithubTest.name
 
   security_rule {
     access                                     = "Allow"
@@ -109,10 +109,10 @@ resource "azurerm_network_security_group" "mygithubtest" {
   }
 }
 
-resource "azurerm_virtual_network" "mygithubtest" {
-  name                = "mygithubtest-network"
+resource "azurerm_virtual_network" "MyGithubTest" {
+  name                = "MyGithubTest-network"
   location            = var.location
-  resource_group_name = azurerm_resource_group.mygithubtest.name
+  resource_group_name = azurerm_resource_group.MyGithubTest.name
   address_space       = ["10.0.0.0/22"]
   //  dns_servers         = ["10.0.0.4", "10.0.0.5"]
 
@@ -120,57 +120,57 @@ resource "azurerm_virtual_network" "mygithubtest" {
     environment = "MyTest"
   }
 }
-resource "azurerm_subnet" "mygithubtest" {
+resource "azurerm_subnet" "MyGithubTest" {
   name                 = "internal"
-  resource_group_name  = azurerm_resource_group.mygithubtest.name
-  virtual_network_name = azurerm_virtual_network.mygithubtest.name
+  resource_group_name  = azurerm_resource_group.MyGithubTest.name
+  virtual_network_name = azurerm_virtual_network.MyGithubTest.name
   address_prefixes     = ["10.0.1.0/24"]
 }
-resource "azurerm_subnet_network_security_group_association" "mygithubtest" {
-  subnet_id   = azurerm_subnet.mygithubtest.id
-  network_security_group_id = azurerm_network_security_group.mygithubtest.id
+resource "azurerm_subnet_network_security_group_association" "MyGithubTest" {
+  subnet_id   = azurerm_subnet.MyGithubTest.id
+  network_security_group_id = azurerm_network_security_group.MyGithubTest.id
 }
-resource "azurerm_public_ip" "mygithubtest" {
+resource "azurerm_public_ip" "MyGithubTest" {
   location            = var.location
   name                = "azuretest-public-ip"
   allocation_method   = "Static"
-  resource_group_name = azurerm_resource_group.mygithubtest.name
+  resource_group_name = azurerm_resource_group.MyGithubTest.name
   sku                 = "Basic"
   ip_version          = "IPv4"
   domain_name_label   = "azuretest-server"
 }
 
-resource "azurerm_network_interface" "mygithubtest" {
-  name                = "mygithubtest-nic"
-  location            = azurerm_resource_group.mygithubtest.location
-  resource_group_name = azurerm_resource_group.mygithubtest.name
+resource "azurerm_network_interface" "MyGithubTest" {
+  name                = "MyGithubTest-nic"
+  location            = azurerm_resource_group.MyGithubTest.location
+  resource_group_name = azurerm_resource_group.MyGithubTest.name
 
   ip_configuration {
     name                          = "internal-ip"
-    subnet_id                     = azurerm_subnet.mygithubtest.id
+    subnet_id                     = azurerm_subnet.MyGithubTest.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.mygithubtest.id
+    public_ip_address_id          = azurerm_public_ip.MyGithubTest.id
   }
 }
-resource "azurerm_dns_zone" "mygithubtest" {
+resource "azurerm_dns_zone" "MyGithubTest" {
   name                = "azure-test.net"
-  resource_group_name = azurerm_resource_group.mygithubtest.name
+  resource_group_name = azurerm_resource_group.MyGithubTest.name
 }
-resource "azurerm_dns_a_record" "mygithubtest" {
+resource "azurerm_dns_a_record" "MyGithubTest" {
   name                = "azuretestvm"
-  zone_name           = azurerm_dns_zone.mygithubtest.name
-  resource_group_name = azurerm_resource_group.mygithubtest.name
+  zone_name           = azurerm_dns_zone.MyGithubTest.name
+  resource_group_name = azurerm_resource_group.MyGithubTest.name
   ttl                 = 300
   # records             = ["10.0.1.4"]\
-  target_resource_id  = azurerm_public_ip.mygithubtest.id
+  target_resource_id  = azurerm_public_ip.MyGithubTest.id
 }
 
 
-resource "azurerm_virtual_machine" "mygithubtest" {
+resource "azurerm_virtual_machine" "MyGithubTest" {
   name                  = "APIServer"
-  location              = azurerm_resource_group.mygithubtest.location
-  resource_group_name   = azurerm_resource_group.mygithubtest.name
-  network_interface_ids = [azurerm_network_interface.mygithubtest.id]
+  location              = azurerm_resource_group.MyGithubTest.location
+  resource_group_name   = azurerm_resource_group.MyGithubTest.name
+  network_interface_ids = [azurerm_network_interface.MyGithubTest.id]
   vm_size               = "Standard_DS1_v2"
   delete_os_disk_on_termination = true
 
