@@ -3,6 +3,6 @@ output "azurerm_storage_account" {
 }
 
 output "azurerm_network_interface" {
-  value = azurerm_network_interface.MyGithubTest.namea
+  value = azurerm_network_interface.MyGithubTest.name
 }
 
