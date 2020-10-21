@@ -24,13 +24,13 @@ resource "azurerm_storage_account" "MyGithubTest" {
   account_kind              = "Storage"
   enable_https_traffic_only = false
   location                  = var.location
-  name                      = "atosapimgmtteststorage"
+  name                      = "azureteststorage"
   resource_group_name       = azurerm_resource_group.MyGithubTest.name
 }
 
 
 resource "azurerm_network_security_group" "MyGithubTest" {
-  name                = "ApiTestSG"
+  name                = "AzureTestSG"
   location            = var.location
   resource_group_name = azurerm_resource_group.MyGithubTest.name
 
@@ -167,7 +167,7 @@ resource "azurerm_dns_a_record" "MyGithubTest" {
 
 
 resource "azurerm_virtual_machine" "MyGithubTest" {
-  name                  = "APIServer"
+  name                  = "AzureTestServer"
   location              = azurerm_resource_group.MyGithubTest.location
   resource_group_name   = azurerm_resource_group.MyGithubTest.name
   network_interface_ids = [azurerm_network_interface.MyGithubTest.id]
@@ -199,11 +199,11 @@ resource "azurerm_virtual_machine" "MyGithubTest" {
       key_data = "var.ssh_key"
     }
   }
-    provisioner "remote-exec" {
-       inline = [
-         "sudo apt-get update && sudo apt-get upgrade -y",
-         "sudo apt-get install -y openjdk-11-jre-dcevm",
-         "sudo apt install -y apache2",
-       ]
-    }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update && sudo apt-get upgrade -y",
+      "sudo apt-get install -y openjdk-11-jre-dcevm",
+      "sudo apt install -y apache2",
+    ]
+  }
 }
