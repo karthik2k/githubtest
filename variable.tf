@@ -3,12 +3,12 @@ variable "location" {
   type        = string
 }
 
-variable "aptmgmtuser_pw" {
+variable "azureuser_pw" {
   description = "The API VM Password"
   type        = string
 }
 
-variable "api_username" {
+variable "test_username" {
   description = "The API VM username"
   type        = string
 }

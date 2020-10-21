@@ -132,12 +132,12 @@ resource "azurerm_subnet_network_security_group_association" "mygithubtest" {
 }
 resource "azurerm_public_ip" "mygithubtest" {
   location            = var.location
-  name                = "apitest-public-ip"
+  name                = "azuretest-public-ip"
   allocation_method   = "Static"
   resource_group_name = azurerm_resource_group.mygithubtest.name
   sku                 = "Basic"
   ip_version          = "IPv4"
-  domain_name_label   = "apitest-server"
+  domain_name_label   = "azuretest-server"
 }
 
 resource "azurerm_network_interface" "mygithubtest" {
@@ -153,17 +153,18 @@ resource "azurerm_network_interface" "mygithubtest" {
   }
 }
 resource "azurerm_dns_zone" "mygithubtest" {
-  name                = "azure-api-test.net"
+  name                = "azure-test.net"
   resource_group_name = azurerm_resource_group.mygithubtest.name
 }
 resource "azurerm_dns_a_record" "mygithubtest" {
-  name                = "apitestvm"
+  name                = "azuretestvm"
   zone_name           = azurerm_dns_zone.mygithubtest.name
   resource_group_name = azurerm_resource_group.mygithubtest.name
   ttl                 = 300
   # records             = ["10.0.1.4"]\
   target_resource_id  = azurerm_public_ip.mygithubtest.id
 }
+
 
 resource "azurerm_virtual_machine" "mygithubtest" {
   name                  = "APIServer"
@@ -180,23 +181,24 @@ resource "azurerm_virtual_machine" "mygithubtest" {
     version   = "latest"
   }
   storage_os_disk {
-    name              = "apivmosdisk1"
+    name              = "azurevmosdisk1"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "apitest-server"
-    admin_username = var.api_username
-    admin_password = var.aptmgmtuser_pw
+    computer_name  = "azuretest-server"
+    admin_username = var.test_username
+    admin_password = var.azureuser_pw
   }
   os_profile_linux_config {
     disable_password_authentication = false
     ssh_keys {
-         path     = "/home/var.api_username/.ssh/authorized_keys"
+      path = "/home/var.test_username/.ssh/authorized_keys"
       //   key_data = file("/Users/karthik/.ssh/id_rsa.pub")
-         key_data = "var.ssh_key"
+      key_data = "var.ssh_key"
     }
+  }
     provisioner "remote-exec" {
        inline = [
          "sudo apt-get update && sudo apt-get upgrade -y",
@@ -204,5 +206,4 @@ resource "azurerm_virtual_machine" "mygithubtest" {
          "sudo apt install -y apache2",
        ]
     }
-  }
 }
