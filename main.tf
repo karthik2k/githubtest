@@ -192,16 +192,17 @@ resource "azurerm_virtual_machine" "mygithubtest" {
   }
   os_profile_linux_config {
     disable_password_authentication = false
-    # ssh_keys {
-    #     path     = "/home/{username}/.ssh/authorized_keys"
-    #     key_data = file("~/.ssh/id_rsa.pub")
-    # }
-    # provisioner "remote-exec" {
-    #   inline = [
-    #     "sudo apt-get update && sudo apt-get upgrade -y",
-    #     "sudo apt-get install -y openjdk-11-jre-dcevm",
-    #     "sudo apt install -y apache2",
-    #   ]
-    #   }
+    ssh_keys {
+         path     = "/home/var.api_username/.ssh/authorized_keys"
+      //   key_data = file("/Users/karthik/.ssh/id_rsa.pub")
+         key_data = "var.ssh_key"
+    }
+    provisioner "remote-exec" {
+       inline = [
+         "sudo apt-get update && sudo apt-get upgrade -y",
+         "sudo apt-get install -y openjdk-11-jre-dcevm",
+         "sudo apt install -y apache2",
+       ]
+    }
   }
 }
