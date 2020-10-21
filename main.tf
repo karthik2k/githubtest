@@ -15,7 +15,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "MyGithubTest" {
   name = "MyGithutTestRG"
-  location = "var.location"
+  location = var.location
 }
 
 resource "azurerm_storage_account" "MyGithubTest" {
