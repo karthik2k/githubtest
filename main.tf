@@ -14,7 +14,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "MyGithubTest" {
-  name = "mygithub_resource_group"
+  name = "MyGithutTestRG"
   location = "eastus"
 }
 
@@ -153,7 +153,7 @@ resource "azurerm_network_interface" "MyGithubTest" {
   }
 }
 resource "azurerm_dns_zone" "MyGithubTest" {
-  name                = "azure-test.net"
+  name                = "github-azure-test.net"
   resource_group_name = azurerm_resource_group.MyGithubTest.name
 }
 resource "azurerm_dns_a_record" "MyGithubTest" {
