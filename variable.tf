@@ -2,12 +2,10 @@ variable "location" {
   description = "The default location for resources"
   type        = string
 }
-
 variable "azureuser_pw" {
   description = "The API VM Password"
   type        = string
 }
-
 variable "test_username" {
   description = "The API VM username"
   type        = string
