@@ -196,7 +196,7 @@ resource "azurerm_virtual_machine" "MyGithubTest" {
     ssh_keys {
       path = "/home/var.test_username/.ssh/authorized_keys"
       //   key_data = file("/Users/karthik/.ssh/id_rsa.pub")
-      key_data = "var.ssh_key"
+      key_data = var.ssh_key
     }
   }
   provisioner "remote-exec" {
