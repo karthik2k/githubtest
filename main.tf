@@ -24,7 +24,7 @@ resource "azurerm_storage_account" "MyGithubTest" {
   account_kind              = "Storage"
   enable_https_traffic_only = false
   location                  = var.location
-  name                      = "azteststorage"
+  name                      = "azteststorage1"
   resource_group_name       = azurerm_resource_group.MyGithubTest.name
 }
 
