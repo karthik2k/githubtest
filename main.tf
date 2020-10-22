@@ -18,15 +18,15 @@ resource "azurerm_resource_group" "MyGithubTest" {
   location = var.location
 }
 
-//resource "azurerm_storage_account" "MyGithubTest" {
-//  account_replication_type  = "LRS"
-//  account_tier              = "Standard"
-//  account_kind              = "Storage"
-//  enable_https_traffic_only = false
-//  location                  = var.location
-//  name                      = "azteststorage1"
-//  resource_group_name       = azurerm_resource_group.MyGithubTest.name
-//}
+resource "azurerm_storage_account" "MyGithubTest_Storage" {
+  account_replication_type  = "LRS"
+  account_tier              = "Standard"
+  account_kind              = "Storage"
+  enable_https_traffic_only = false
+  location                  = var.location
+  name                      = "azteststorage"
+  resource_group_name       = azurerm_resource_group.MyGithubTest.name
+}
 
 
 resource "azurerm_network_security_group" "MyGithubTest" {
@@ -196,7 +196,7 @@ resource "azurerm_virtual_machine" "MyGithubTest" {
     ssh_keys {
       path = "/home/var.test_username/.ssh/authorized_keys"
       //   key_data = file("/Users/karthik/.ssh/id_rsa.pub")
-      key_data = var.ssh_key
+      key_data =  "var.ssh_key"
     }
   }
   provisioner "remote-exec" {
