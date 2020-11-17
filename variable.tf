@@ -6,6 +6,10 @@ variable "azureuser_pw" {
   description = "The API VM Password"
   type        = string
 }
+variable "vmname" {
+  description = "Default VM Name"
+  type = string
+}
 variable "test_username" {
   description = "The API VM username"
   type        = string

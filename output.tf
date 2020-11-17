@@ -1,6 +1,6 @@
-output "azurerm_storage_account" {
-  value = azurerm_storage_account.MyGithubTest_Storage.name
-}
+//output "azurerm_storage_account" {
+//  value = azurerm_storage_account.MyGithubTest_Storage.name
+//}
 
 output "azurerm_network_interface" {
   value = azurerm_network_interface.MyGithubTest.name
